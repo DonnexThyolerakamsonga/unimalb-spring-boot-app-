@@ -4,6 +4,7 @@ import com.example.unimalb.student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,26 +31,28 @@ public class AdminService {
 
          adminReposistory.deleteById(adminId);
     }
-
+    @Transactional
     public void UpdateAdmin(Long adminId, String email, String fullName) {
         UnimalbAdmin unimalbAdmin =adminReposistory.findById(adminId)
                 .orElseThrow(() ->new IllegalStateException(
                                 "student with id " + adminId + " does not exist"
                         )
                 );
-
         if (fullName != null && fullName.length()>0 && !Objects.equals(unimalbAdmin.getFullName(), fullName)){
             unimalbAdmin.setFullName(fullName);
         }
         if (email != null && email.length() > 0 && !Objects.equals(unimalbAdmin.getEmail(), email)){
-            Optional<Student> studentOptional = unimalbAdmin.findStudentByEmail(email);
+            Optional<UnimalbAdmin> findAdminByEmail = adminReposistory.findAdminByEmail(email);
 
-            if (studentOptional.isPresent()){
+            if (findAdminByEmail.isPresent()){
                 throw  new IllegalStateException("Email taken");
             }
 
-            student.setEmail(email);
-    }
+            unimalbAdmin.setEmail(email);
+        }
+
+
+}
 
     public void addNewAdmin(UnimalbAdmin unimalbAdmin) {
         Optional<UnimalbAdmin> findAdminByEmail=  adminReposistory.findAdminByEmail(unimalbAdmin.getEmail());
@@ -60,4 +63,4 @@ public class AdminService {
         }
         adminReposistory.save(unimalbAdmin);
     }
-}
+    }

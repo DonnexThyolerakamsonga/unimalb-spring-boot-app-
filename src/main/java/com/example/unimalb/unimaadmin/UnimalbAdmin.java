@@ -1,5 +1,7 @@
 package com.example.unimalb.unimaadmin;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,9 +17,13 @@ public class UnimalbAdmin {
             strategy = GenerationType.SEQUENCE,
             generator = "UnimalbAdmin_sequence"
     )
+    @ApiModelProperty(notes = "It show id of admin")
     private  Long id;
+    @ApiModelProperty(notes = "It show full name of admin")
     private  String fullName;
+    @ApiModelProperty(notes = "It show email of admin")
     private String email;
+    @ApiModelProperty(notes = "It show password of admin")
     private  String pwd;
 
     public UnimalbAdmin() {

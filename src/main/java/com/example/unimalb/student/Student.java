@@ -1,5 +1,7 @@
 package com.example.unimalb.student;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 @Entity
@@ -15,13 +17,21 @@ public class Student {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
+    @ApiModelProperty(notes = "It shows id of student")
     private Long id;
+    @ApiModelProperty(notes = "It shows full name of student")
     private  String fullName;
+    @ApiModelProperty(notes = "It shows registration number of student")
     private  String regNum;
+    @ApiModelProperty(notes = "It shows email of student")
     private  String email;
+    @ApiModelProperty(notes = "It shows loan type he/she applied ")
     private  String loanType;
+    @ApiModelProperty(notes = "It shows loan status of student wearth he or she is on loan that year or not")
     private  boolean loanStatus;
+    @ApiModelProperty(notes = "It shows student applied loan")
     private LocalDate year;
+    @ApiModelProperty(notes = "It shows password of student")
     private  String pwd;
 
     public Student() {
